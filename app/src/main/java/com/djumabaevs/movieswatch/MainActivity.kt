@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(webView)
 
+
         webView.loadUrl("https://www.google.com")
 
 
