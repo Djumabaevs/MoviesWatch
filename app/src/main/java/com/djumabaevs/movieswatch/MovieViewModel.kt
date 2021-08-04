@@ -34,6 +34,7 @@ class MovieViewModel(private val movieRepository: MovieRepository) :
                     "${cal.get(Calendar.YEAR)} - ${cal.get(Calendar.MONTH) + 1}"
                 )
             }
+            .sorted { movie1, movie2 -> movie1.title.compareTo(movie2.title) }
             .toList()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
