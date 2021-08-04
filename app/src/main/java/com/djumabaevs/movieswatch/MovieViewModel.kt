@@ -34,7 +34,7 @@ class MovieViewModel(private val movieRepository: MovieRepository) :
                     "${cal.get(Calendar.YEAR)} - ${cal.get(Calendar.MONTH) + 1}"
                 )
             }
-            .
+            .toList()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 popularMoviesLiveData.postValue(it)
