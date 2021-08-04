@@ -25,17 +25,18 @@ class MovieViewModel(private val movieRepository: MovieRepository) :
     fun fetchPopularMovies() {
         disposable.add(movieRepository.fetchMovies()
             .subscribeOn(Schedulers.io())
-//            .map { it.results }
-            .flatMap { Observable.fromIterable(it.results) }
-            .filter {
-                val cal = Calendar.getInstance()
-                cal.add(Calendar.MONTH, -1)
-                it.release_date.startsWith(
-                    "${cal.get(Calendar.YEAR)} - ${cal.get(Calendar.MONTH) + 1}"
-                )
-            }
-            .sorted { movie1, movie2 -> movie1.title.compareTo(movie2.title) }
-            .toList()
+            .map { it.results }
+//            .flatMap { Observable.fromIterable(it.results) }
+//            .filter {
+//                val cal = Calendar.getInstance()
+//                cal.add(Calendar.MONTH, -1)
+//                it.release_date.startsWith(
+//                    "${cal.get(Calendar.YEAR)} - ${cal.get(Calendar.MONTH) + 1}"
+//                )
+//            }
+//            .sorted { movie1, movie2 -> movie1.title.compareTo(movie2.title) }
+//            .map { it.copy(title = it.title.toUpperCase(Locale.getDefault())) }
+//            .toList()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 popularMoviesLiveData.postValue(it)
