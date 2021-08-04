@@ -36,6 +36,7 @@ class MovieViewModel(private val movieRepository: MovieRepository) :
 //            }
 //            .sorted { movie1, movie2 -> movie1.title.compareTo(movie2.title) }
 //            .map { it.copy(title = it.title.toUpperCase(Locale.getDefault())) }
+//            .take(4)
 //            .toList()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
