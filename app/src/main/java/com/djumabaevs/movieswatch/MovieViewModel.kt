@@ -1,5 +1,6 @@
 package com.djumabaevs.movieswatch
 
+import android.icu.util.Calendar
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -26,6 +27,13 @@ class MovieViewModel(private val movieRepository: MovieRepository) :
             .subscribeOn(Schedulers.io())
 //            .map { it.results }
             .flatMap { Observable.fromIterable(it.results) }
+            .filter {
+                val cal = Calendar.getInstance()
+                cal.add(Calendar.MONTH, -1)
+                it.release_date.startsWith(
+                    "${cal.get(Calendar.YEAR)} - ${cal.get(Calendar.MONTH) + 1}"
+                )
+            }
             .
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
