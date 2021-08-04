@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.djumabaevs.movieswatch.model.Movie
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
@@ -23,7 +24,9 @@ class MovieViewModel(private val movieRepository: MovieRepository) :
     fun fetchPopularMovies() {
         disposable.add(movieRepository.fetchMovies()
             .subscribeOn(Schedulers.io())
-            .map { it.results }
+//            .map { it.results }
+            .flatMap { Observable.fromIterable(it.results) }
+            .
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 popularMoviesLiveData.postValue(it)
