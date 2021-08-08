@@ -39,8 +39,10 @@ class MainActivity : AppCompatActivity() {
 
         val movieRepository = (application as MovieApplication).movieRepository
         val movieViewModel = ViewModelProvider(this, object: ViewModelProvider.Factory{
-
-        })
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return MovieViewModel(movieRepository) as T
+            }
+        }).get(MovieViewModel::class.java)
 
     }
 
