@@ -2,6 +2,7 @@ package com.djumabaevs.movieswatch
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.icu.util.Calendar
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.webkit.WebView
@@ -43,6 +44,21 @@ class MainActivity : AppCompatActivity() {
                 return MovieViewModel(movieRepository) as T
             }
         }).get(MovieViewModel::class.java)
+
+        movieViewModel.popularMovies.observe(this, {popularMovies ->
+            movieAdapter.addMovies(popularMovies
+                .filter {
+                    it.release_date.startsWith(
+                        java.util.Calendar.getInstance().get(Calendar.YEAR).toString()
+                    )
+                }
+                .sortedBy {
+                    it.title
+                }
+            )
+        })
+
+        movieViewModel
 
     }
 
