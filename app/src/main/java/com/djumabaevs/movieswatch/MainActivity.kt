@@ -58,7 +58,9 @@ class MainActivity : AppCompatActivity() {
             )
         })
 
-        movieViewModel
+        movieViewModel.getError().observe(this, {error ->
+            Toast.makeText(this, error, Toast.LENGTH_LONG).show()
+        })
 
     }
 
