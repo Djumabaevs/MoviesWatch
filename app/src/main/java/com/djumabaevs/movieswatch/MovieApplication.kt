@@ -14,7 +14,7 @@ class MovieApplication : Application() {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.themoviedb.org/3/")
             .addConverterFactory(MoshiConverterFactory.create())
-            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+//            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .build()
         val movieService = retrofit.create(MovieService::class.java)
         movieRepository = MovieRepository(movieService)

@@ -35,11 +35,14 @@ class MainActivity : AppCompatActivity() {
         val recyclerView: RecyclerView = findViewById(R.id.movie_list)
         recyclerView.adapter = movieAdapter
 
-        getMovies()
+//        getMovies()
+
+        val movieRepository = (application as MovieApplication).movieRepository
+        val moviewViewModel = ViewModelProvider(this, )
 
     }
 
-    private fun getMovies() {
+/*    private fun getMovies() {
         val movieRepository = (application as
                 MovieApplication).movieRepository
         val movieViewModel = ViewModelProvider(this, object :
@@ -58,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         movieViewModel.error.observe(this, { error ->
             Toast.makeText(this, error, Toast.LENGTH_LONG).show()
         })
-    }
+    }*/
 
     private fun openMovieDetails(movie: Movie) {
         val intent =
