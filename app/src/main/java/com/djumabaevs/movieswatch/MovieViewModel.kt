@@ -13,7 +13,23 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 class MovieViewModel(private val movieRepository: MovieRepository) :
     ViewModel() {
 
-    private val popularMoviesLiveData = MutableLiveData<List<Movie>>()
+        init {
+            fetchPopularMovies()
+        }
+
+    val popularMovies: LiveData<List<Movie>>
+    get() = movieRepository.movies
+
+    fun getError(): LiveData<String> = movieRepository.error
+
+    private fun fetchPopularMovies() {
+
+    }
+
+
+
+
+/*    private val popularMoviesLiveData = MutableLiveData<List<Movie>>()
     private val errorLiveData = MutableLiveData<String>()
     val popularMovies: LiveData<List<Movie>>
         get() = popularMoviesLiveData
@@ -49,7 +65,7 @@ class MovieViewModel(private val movieRepository: MovieRepository) :
     override fun onCleared() {
         super.onCleared()
         disposable.dispose()
-    }
+    }*/
 
 
     }
