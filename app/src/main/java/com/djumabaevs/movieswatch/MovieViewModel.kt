@@ -1,10 +1,7 @@
 package com.djumabaevs.movieswatch
 
-import android.icu.util.Calendar
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.util.*
+import androidx.lifecycle.*
 import com.djumabaevs.movieswatch.model.Movie
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
@@ -12,6 +9,8 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.*
+
 
 class MovieViewModel(private val movieRepository: MovieRepository) :
     ViewModel() {
@@ -21,7 +20,16 @@ class MovieViewModel(private val movieRepository: MovieRepository) :
         }
 
     val popularMovies: LiveData<List<Movie>>
-    get() = movieRepository.movies
+//    get() = movieRepository.movies
+    get() = movieRepository.movies.map { list ->
+    list.filter {
+        val cal  = Calendar.getInstance()
+        cal.add(Calendar.MONTH, -1)
+        it.release_date.startsWith(
+            "${cal.get(Calendar.YEAR)} - ${cal.get(Calendar.MONTH) + 1}"
+        )
+    }.sortedBy { it.title }
+}
 
     fun getError(): LiveData<String> = movieRepository.error
 

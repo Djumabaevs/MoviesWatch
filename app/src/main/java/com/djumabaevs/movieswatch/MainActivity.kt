@@ -46,16 +46,15 @@ class MainActivity : AppCompatActivity() {
         }).get(MovieViewModel::class.java)
 
         movieViewModel.popularMovies.observe(this, {popularMovies ->
-            movieAdapter.addMovies(popularMovies
-                .filter {
+            movieAdapter.addMovies(popularMovies)
+            /*    .filter {
                     it.release_date.startsWith(
                         java.util.Calendar.getInstance().get(Calendar.YEAR).toString()
                     )
                 }
                 .sortedBy {
                     it.title
-                }
-            )
+                }*/
         })
 
         movieViewModel.getError().observe(this, {error ->
