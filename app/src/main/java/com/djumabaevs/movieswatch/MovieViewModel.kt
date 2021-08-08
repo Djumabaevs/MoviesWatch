@@ -4,11 +4,14 @@ import android.icu.util.Calendar
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.djumabaevs.movieswatch.model.Movie
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MovieViewModel(private val movieRepository: MovieRepository) :
     ViewModel() {
@@ -23,7 +26,9 @@ class MovieViewModel(private val movieRepository: MovieRepository) :
     fun getError(): LiveData<String> = movieRepository.error
 
     private fun fetchPopularMovies() {
-
+        viewModelScope.launch(Dispatchers.IO) {
+            movieRepository.fetchMovies()
+        }
     }
 
 
