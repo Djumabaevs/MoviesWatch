@@ -7,6 +7,12 @@ import retrofit2.http.Query
 
 interface MovieService {
     @GET("movie/popular")
+    suspend fun getPopularMovies
+}
+
+/*
+interface  MovieService {
+    @GET("movie/popular")
     fun getPopularMovies(@Query("api_key") apiKey: String):
             Observable<PopularMoviesResponse>
-}
+}*/
