@@ -38,7 +38,9 @@ class MainActivity : AppCompatActivity() {
 //        getMovies()
 
         val movieRepository = (application as MovieApplication).movieRepository
-        val moviewViewModel = ViewModelProvider(this, )
+        val movieViewModel = ViewModelProvider(this, object: ViewModelProvider.Factory{
+
+        })
 
     }
 
